@@ -44,4 +44,24 @@ for line in doc[1:]:
 	if lineajson["NOMBRE"].startswith(cadena):
 		nombrepartido = lineajson["NOMBRE"].split(" ")
 		if len(nombrepartido) == num:
-			print "El centro " + lineajson["NOMBRE"] " coincide con los criterios de busqueda."
+			print "El centro " + lineajson["NOMBRE"] + " coincide con los criterios de busqueda."
+
+#Introduce un tipo de centro y muestra cuantos centros hay en las distintas localidades
+tipo = raw_input(" Introduzca un tipo de centro: ")
+ciudades = []
+acumulador = 0
+for line in doc[1:]:
+	lineajson = json.loads(line)
+	if lineajson["TIPO"] == tipo:
+		acumulador = acumulador + 1
+		if lineajson["LOCALIDAD"] not in ciudades:
+			ciudades.append(lineajson["LOCALIDAD"])
+
+
+for ciudad in ciudades:
+	numero = 0
+	for line in doc[1:]:
+		lineajson = json.loads(line)
+		if lineajson["LOCALIDAD"] == ciudad:
+			numero = numero + 1
+	print "La localidad " + ciudad + " contiene " + str(numero) + "  centros de ese tipo"
